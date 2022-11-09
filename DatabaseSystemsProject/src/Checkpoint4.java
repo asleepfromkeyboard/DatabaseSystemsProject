@@ -78,6 +78,15 @@ public class Checkpoint4 {
         }
     }
     
+    public static void sqlAddQuery(Connection conn, String sql){
+        try {
+        	Statement stmt = conn.createStatement();
+        	ResultSet rs = stmt.executeQuery(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     // Displays the main menu
  	public static void displayMainMenu() {
  		System.out.println("--- Main Menu ---");
@@ -120,12 +129,6 @@ public class Checkpoint4 {
     Scanner userInput = new Scanner(System.in);
     //Connecting to database
     Connection conn = initializeDB(DATABASE);
-    
-    //TODO Remove functionality involving HashMaps and replace with database functionality.
-    // Declaring variables for storing data (our database in this checkpoint)
-    HashMap <Integer, String>memberData = new HashMap<Integer, String>();
-    HashMap <Integer, String>equipmentData = new HashMap<Integer, String>();
-    HashMap <Integer, String>warehouseData = new HashMap<Integer, String>();
     			
     // Displays the main menu to start off, then asks the user to choose an option
     displayMainMenu();
@@ -166,25 +169,15 @@ public class Checkpoint4 {
     								break;
     							case "1":
     								System.out.println("--- Add Member ---");
-    								dataName = getName(userInput);
-    								dataID = getNum(userInput);
-    								memberData.put(dataID, dataName);
-    								System.out.println(dataName + " was added.");
-
+    								//TODO
     								break;
     							case "2":
     								System.out.println("--- Add Equipment ---");
-    								dataName = getName(userInput);
-    								dataID = getNum(userInput);
-    								equipmentData.put(dataID, dataName);
-    								System.out.println(dataName + " was added.");
+    								//TODO
     								break;
     							case "3":
     								System.out.println("--- Add Warehouse ---");
-    								dataName = getName(userInput);
-    								dataID = getNum(userInput);
-    								warehouseData.put(dataID, dataName);
-    								System.out.println(dataName + " was added.");
+    								//TODO
     								break;						
     							default: 
     								System.out.println("Error: Invalid Input");
@@ -209,30 +202,15 @@ public class Checkpoint4 {
     							break;
     						case "1":
     							System.out.println("--- Edit Member ---");
-    							System.out.println("Enter a Member ID below to edit their name.");
-    							dataID = getNum(userInput);
-    							System.out.println("Enter a new name for Member ID: "+dataID+".");
-    							newName = getName(userInput);
-    							memberData.put(dataID, newName);
-    							System.out.println("Member ID: "+dataID+" was updated.");
+    							//TODO
     							break;
     						case "2":
     							System.out.println("--- Edit Equipment ---");
-    							System.out.println("Enter an Equipment ID below to edit their name.");
-    							dataID = getNum(userInput);
-    							System.out.println("Enter a new name for Equipment ID: "+dataID+".");
-    							newName = getName(userInput);
-    							equipmentData.put(dataID, newName);
-    							System.out.println("Equipment ID: "+dataID+" was updated.");
+    							//TODO
     							break;
     						case "3":
     							System.out.println("--- Edit Warehouse ---");
-    							System.out.println("Enter a Warehouse ID below to edit their name.");
-    							dataID = getNum(userInput);
-    							System.out.println("Enter a new name for Warehouse ID: "+dataID+".");
-    							newName = getName(userInput);
-    							warehouseData.put(dataID, newName);
-    							System.out.println("Warehouse ID: "+dataID+" was updated.");
+    							//TODO
     							break;
     						default: 
     							System.out.println("Error: Invalid Input");
@@ -255,21 +233,15 @@ public class Checkpoint4 {
     							break;
     						case "1":
     							System.out.println("--- Delete Member ---");
-    							dataID = getNum(userInput);
-    							System.out.println("Member: " + memberData.get(dataID) + " is being deleted.");
-    							memberData.remove(dataID);
+    							//TODO;
     							break;
     						case "2":
     							System.out.println("--- Delete Equipment ---");
-    							dataID = getNum(userInput);
-    							System.out.println("Equipment: " + equipmentData.get(dataID) + " is being deleted.");
-    							equipmentData.remove(dataID);
+    							//TODO
     							break;
     						case "3":
     							System.out.println("--- Delete Warehouse ---");
-    							dataID = getNum(userInput);
-    							System.out.println("Warehouse: " + warehouseData.get(dataID) + " is being deleted.");
-    							warehouseData.remove(dataID);
+    							//TODO
     							break;
     						default: 
     							System.out.println("Error: Invalid Input");
@@ -291,25 +263,16 @@ public class Checkpoint4 {
     							mainChoice = userInput.nextLine();
     						break;
     						case "1":
-    							System.out.println("--- Search Member ---");
-    							System.out.println("Enter a Member ID to search.");
-    							dataID = getNum(userInput);
-    							System.out.println("Member ID: " + dataID);
-    							System.out.println("Member Name: " + memberData.get(dataID));
+    							System.out.println("--- Search Members ---");
+    							//TODO
     						break;
     						case "2":
     							System.out.println("--- Search Equipment ---");
-    							System.out.println("Enter an Equipment ID to search.");
-    							dataID = getNum(userInput);
-    							System.out.println("Equipment ID: " + dataID);
-    							System.out.println("Equipment Name: " + equipmentData.get(dataID));
+    							//TODO
     						break;
     						case "3":
-    							System.out.println("--- Search Warehouse ---");
-    							System.out.println("Enter a Warehouse ID to search.");
-    							dataID = getNum(userInput);
-    							System.out.println("Warehouse ID: " + dataID);
-    							System.out.println("Warehouse Name: " + warehouseData.get(dataID));
+    							System.out.println("--- Search Warehouses ---");
+    							//TODO
     						break;
     						default: 
     							System.out.println("Error: Invalid Input");
