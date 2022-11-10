@@ -17,7 +17,7 @@ public class Checkpoint4 {
 	/**
 	 *  The database file name.
 	 */
-	private static String DATABASE = "cp4v2.db";
+	private static String DATABASE = "cp4v3.db";
 	
     /**
      * Connects to the database if it exists, creates it if it does not, and returns the connection object.
@@ -104,6 +104,13 @@ public class Checkpoint4 {
  		System.out.println("[1] - Member");
  		System.out.println("[2] - Equipment");
  		System.out.println("[3] - Warehouse");
+ 		System.out.println("[4] - Drone");
+ 		System.out.println("[5] - Drone Custom Order");
+ 		System.out.println("[6] - Equipment Custom Order");
+ 		System.out.println("[7] - Other Custom Order");
+ 		System.out.println("[8] - New Element Order");
+ 		System.out.println("[9] - Review");
+ 		System.out.println("[10] - City");
  		System.out.println("[0] - Go Back");
  		System.out.print("Enter a number: ");
  	}
@@ -284,7 +291,177 @@ public class Checkpoint4 {
         								} catch (SQLException e) {
     									e.printStackTrace();
         								}
-    								break;						
+    								break;		
+    							case "4":
+    								System.out.println("--- Add Drone ---");
+    								sql = "INSERT INTO Drone (Serial_Number, Warehouse, Description, Model_Number, Fleet_ID, Manufacturer) VALUES (?,?,?,?,?,?)";
+    								System.out.print("Enter the new serial number: ");
+    								String d01 = getString(userInput);
+    								System.out.print("Enter the new warehouse number: ");
+    								int d02 = getNum(userInput);
+    								System.out.print("Enter the new description: ");
+    								String d03 = getString(userInput);
+    								System.out.print("Enter the new model number: ");
+    								String d04 = getString(userInput);
+    								System.out.print("Enter the new fleet ID: ");
+    								String d05 = getString(userInput);
+    								System.out.print("Enter the new manufacturer: ");
+    								String d06 = getString(userInput);
+    								try {
+    									PreparedStatement newDroneEntry = conn.prepareStatement(sql);
+    									newDroneEntry.setString(1, d01);
+    									newDroneEntry.setInt(2, d02);
+    									newDroneEntry.setString(3, d03);
+    									newDroneEntry.setString(4, d04);
+    									newDroneEntry.setString(5, d05);
+    									newDroneEntry.setString(6, d06);
+    									newDroneEntry.execute();
+    									System.out.println("New drone added.");
+        								} catch (SQLException e) {
+    									e.printStackTrace();
+        								}
+    							break;
+    							case "5":
+    								System.out.println("--- Add Drone Custom Order ---");
+    								sql = "INSERT INTO Custom_Order_Drones (Order_ID, Drone_Number) VALUES (?,?)";
+    								System.out.print("Enter the new order ID: ");
+    								String do01 = getString(userInput);
+    								System.out.print("Enter the new drone serial number: ");
+    								String do02 = getString(userInput);
+    								try {
+    									PreparedStatement newDroneOrder = conn.prepareStatement(sql);
+    									newDroneOrder.setString(1, do01);
+    									newDroneOrder.setString(2, do02);
+    									newDroneOrder.execute();
+    									System.out.println("New drone custom order added.");
+        								} catch (SQLException e) {
+    									e.printStackTrace();
+        								}
+        						break;
+    							case "6":
+    								System.out.println("--- Add Equipment Custom Order ---");
+    								sql = "INSERT INTO Custom_Order_Equipment (Order_ID, Inv_ID) VALUES (?,?)";
+    								System.out.print("Enter the new order ID: ");
+    								String eo01 = getString(userInput);
+    								System.out.print("Enter the new inventory ID: ");
+    								String eo02 = getString(userInput);
+    								try {
+    									PreparedStatement newEquipOrder = conn.prepareStatement(sql);
+    									newEquipOrder.setString(1, eo01);
+    									newEquipOrder.setString(2, eo02);
+    									newEquipOrder.execute();
+    									System.out.println("New equipment custom order added.");
+        								} catch (SQLException e) {
+    									e.printStackTrace();
+        								}
+        						break;
+    							case "7":
+    								System.out.println("--- Add Other Custom Order ---");
+    								sql = "INSERT INTO Custom_Order (Order_ID, Member_ID, Description, Value, ETA, Due_Date, Fee_Charged) VALUES (?,?,?,?,?,?,?)";
+    								System.out.print("Enter the new order ID: ");
+    								String co01 = getString(userInput);
+    								System.out.print("Enter the new member ID: ");
+    								String co02 = getString(userInput);
+    								System.out.print("Enter the new description: ");
+    								String co03 = getString(userInput);
+    								System.out.print("Enter the new value: ");
+    								int co04 = getNum(userInput);
+    								System.out.print("Enter the new ETA: ");
+    								String co05 = getString(userInput);
+    								System.out.print("Enter the new due date: ");
+    								String co06 = getString(userInput);
+    								System.out.print("Enter the new fee charged: ");
+    								int co07 = getNum(userInput);
+    								try {
+    									PreparedStatement newCustomOrder = conn.prepareStatement(sql);
+    									newCustomOrder.setString(1, co01);
+    									newCustomOrder.setString(2, co02);
+    									newCustomOrder.setString(3, co03);
+    									newCustomOrder.setInt(4, co04);
+    									newCustomOrder.setString(5, co05);
+    									newCustomOrder.setString(6, co06);
+    									newCustomOrder.setInt(7, co07);
+    									newCustomOrder.execute();
+    									System.out.println("New other custom order added.");
+        								} catch (SQLException e) {
+    									e.printStackTrace();
+        								}
+    								break;
+    							case "8":
+    								System.out.println("--- Add New Element Order ---");
+    								sql = "INSERT INTO New_Elements_Ordered (Order_ID, Description, Quantity, Value, ETA, Arrival_Date, Warehouse_Number) VALUES (?,?,?,?,?,?,?)";
+    								System.out.print("Enter the new order ID: ");
+    								String el01 = getString(userInput);
+    								System.out.print("Enter the new description: ");
+    								String el02 = getString(userInput);
+    								System.out.print("Enter the new quantity: ");
+    								int el03 = getNum(userInput);
+    								System.out.print("Enter the new value: ");
+    								int el04 = getNum(userInput);
+    								System.out.print("Enter the new ETA: ");
+    								String el05 = getString(userInput);
+    								System.out.print("Enter the new arrival date: ");
+    								String el06 = getString(userInput);
+    								System.out.print("Enter the new warehouse number: ");
+    								int el07 = getNum(userInput);
+    								try {
+    									PreparedStatement newElementOrder = conn.prepareStatement(sql);
+    									newElementOrder.setString(1, el01);
+    									newElementOrder.setString(2, el02);
+    									newElementOrder.setInt(3, el03);
+    									newElementOrder.setInt(4, el04);
+    									newElementOrder.setString(5, el05);
+    									newElementOrder.setString(6, el06);
+    									newElementOrder.setInt(7, el07);
+    									newElementOrder.execute();
+    									System.out.println("New element order added.");
+        								} catch (SQLException e) {
+    									e.printStackTrace();
+        								}
+    								break;
+    							case "9":
+    								System.out.println("--- Add New Review ---");
+    								sql = "INSERT INTO Review (Date, Title, Content, Rate, Order_ID) VALUES (?,?,?,?,?)";
+    								System.out.print("Enter the new date: ");
+    								String r01 = getString(userInput);
+    								System.out.print("Enter the new title: ");
+    								String r02 = getString(userInput);
+    								System.out.print("Enter the new content: ");
+    								String r03 = getString(userInput);
+    								System.out.print("Enter the new rating: ");
+    								int r04 = getNum(userInput);
+    								System.out.print("Enter the new order ID: ");
+    								String r05 = getString(userInput);
+    								try {
+    									PreparedStatement newReview = conn.prepareStatement(sql);
+    									newReview.setString(1, r01);
+    									newReview.setString(2, r02);
+    									newReview.setString(3, r03);
+    									newReview.setInt(4, r04);
+    									newReview.setString(5, r05);
+    									newReview.execute();
+    									System.out.println("New review added.");
+        								} catch (SQLException e) {
+    									e.printStackTrace();
+        								}
+    								break;
+    							case "10":
+    								System.out.println("--- Add New City ---");
+    								sql = "INSERT INTO City (City_Name, State) VALUES (?,?)";
+    								System.out.print("Enter the new city: ");
+    								String c01 = getString(userInput);
+    								System.out.print("Enter the new state: ");
+    								String c02 = getString(userInput);
+    								try {
+    									PreparedStatement newCity = conn.prepareStatement(sql);
+    									newCity.setString(1, c01);
+    									newCity.setString(2, c02);
+    									newCity.execute();
+    									System.out.println("New city added.");
+        								} catch (SQLException e) {
+    									e.printStackTrace();
+        								}
+    								break;
     							default: 
     								System.out.println("Error: Invalid Input");
     								break;						
@@ -411,7 +588,35 @@ public class Checkpoint4 {
     							case "3":
     								System.out.println("--- Viewing All Warehouses ---");
     								sqlSelectQuery(conn, "SELECT * FROM Warehouse;");
-    								break;						
+    								break;
+    							case "4":
+    								System.out.println("--- Viewing All Drones---");
+    								sqlSelectQuery(conn, "SELECT * FROM Drone;");
+    								break;	
+    							case "5":
+    								System.out.println("--- Viewing All Drone Custom Orders---");
+    								sqlSelectQuery(conn, "SELECT * FROM Custom_Order_Drones;");
+    								break;
+    							case "6":
+    								System.out.println("--- Viewing All Equipment Custom Orders---");
+    								sqlSelectQuery(conn, "SELECT * FROM Custom_Order_Equipment;");
+    								break;
+    							case "7":
+    								System.out.println("--- Viewing All Other Custom Orders---");
+    								sqlSelectQuery(conn, "SELECT * FROM Custom_Order;");
+    								break;
+    							case "8":
+    								System.out.println("--- Viewing All New Element Orders---");
+    								sqlSelectQuery(conn, "SELECT * FROM New_Elements_Ordered;");
+    								break;
+    							case "9":
+    								System.out.println("--- Viewing All Reviews---");
+    								sqlSelectQuery(conn, "SELECT * FROM Review;");
+    								break;
+    							case "10":
+    								System.out.println("--- Viewing All Cities---");
+    								sqlSelectQuery(conn, "SELECT * FROM City;");
+    								break;
     							default: 
     								System.out.println("Error: Invalid Input");
     								break;						
