@@ -76,11 +76,12 @@ public class Checkpoint4 {
             System.out.println(e.getMessage());
         }
     }
-    
-    public static void sqlAddQuery(Connection conn, String sql){
+
+    public static void sqlQuery(Connection conn, String sql){
         try {
-        	Statement stmt = conn.createStatement();
-        	ResultSet rs = stmt.executeQuery(sql);
+        	PreparedStatement stmt = conn.prepareStatement(sql);
+        	stmt.execute();
+        	System.out.println("Query Succesful");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -178,7 +179,7 @@ public class Checkpoint4 {
     								break;
     							case "1":
     								System.out.println("--- Add Member ---");
-    								sql = "INSERT INTO Member (MemberID, First_Name, Last_Name, Address, Email, Start_Date, Warehouse_Distance, Warehouse_Number) VALUES (?,?,?,?,?,?,?,?)";
+    								sql = "INSERT INTO Member (Member_ID, First_Name, Last_Name, Address, Email, Start_Date, Warehouse_Distance, Warehouse_Number) VALUES (?,?,?,?,?,?,?,?)";
     								System.out.print("Enter the new member's ID: ");
     								String newMemberID = getString(userInput);
     								System.out.print("Enter the new member's first name: ");
@@ -485,7 +486,7 @@ public class Checkpoint4 {
     							break;
     						case "1":
     							System.out.println("--- Edit Member ---");
-    							//TODO
+    							//TODO;
     							break;
     						case "2":
     							System.out.println("--- Edit Equipment ---");
@@ -493,6 +494,34 @@ public class Checkpoint4 {
     							break;
     						case "3":
     							System.out.println("--- Edit Warehouse ---");
+    							//TODO
+    							break;
+    						case "4":
+    							System.out.println("--- Edit Drone ---");
+    							//TODO
+    							break;
+    						case "5":
+    							System.out.println("--- Edit Drone Custom Order ---");
+    							//TODO;
+    							break;
+    						case "6":
+    							System.out.println("--- Edit Equipment Custom Order ---");
+    							//TODO
+    							break;
+    						case "7":
+    							System.out.println("--- Edit Other Custom Order ---");
+    							//TODO
+    							break;
+    						case "8":
+    							System.out.println("--- Edit New Element Order ---");
+    							//TODO
+    							break;
+    						case "9":
+    							System.out.println("--- Edit Review ---");
+    							//TODO
+    							break;
+    						case "10":
+    							System.out.println("--- Edit City ---");
     							//TODO
     							break;
     						default: 
@@ -516,15 +545,65 @@ public class Checkpoint4 {
     							break;
     						case "1":
     							System.out.println("--- Delete Member ---");
-    							//TODO;
+    							System.out.print("Enter a member ID to delete: ");
+    							String enteredMemId = getString(userInput);
+    							sqlQuery(conn, "DELETE FROM Member WHERE Member_ID = '"+enteredMemId+"';");
     							break;
     						case "2":
     							System.out.println("--- Delete Equipment ---");
-    							//TODO
+    							System.out.print("Enter an inventory ID to delete: ");
+    							String enteredInvId = getString(userInput);
+    							sqlQuery(conn, "DELETE FROM Equipment WHERE Inv_ID = '"+enteredInvId+"';");
     							break;
     						case "3":
     							System.out.println("--- Delete Warehouse ---");
-    							//TODO
+    							System.out.print("Enter a warehouse number to delete: ");
+    							String enteredWarNum = getString(userInput);
+    							sqlQuery(conn, "DELETE FROM Warehouse WHERE Warehouse_Number = '"+enteredWarNum+"';");
+    							break;
+    						case "4":
+    							System.out.println("--- Delete Drone ---");
+    							System.out.print("Enter a drone serial number to delete: ");
+    							String enteredDroneSerNum = getString(userInput);
+    							sqlQuery(conn, "DELETE FROM Drone WHERE Serial_Number = '"+enteredDroneSerNum+"';");
+    							break;
+    						case "5":
+    							System.out.println("--- Delete Drone Custom Order ---");
+    							System.out.print("Enter a drone order ID to delete: ");
+    							String enteredDroneOrderId = getString(userInput);
+    							sqlQuery(conn, "DELETE FROM Custom_Order_Drones WHERE Order_ID = '"+enteredDroneOrderId+"';");
+    							break;
+    						case "6":
+    							System.out.println("--- Delete Equipment Custom Order ---");
+    							System.out.print("Enter an equipmdent order ID to delete: ");
+    							String enteredEqOrdId = getString(userInput);
+    							sqlQuery(conn, "DELETE FROM Custom_Order_Equipment WHERE Order_ID = '"+enteredEqOrdId+"';");
+    							break;
+    						case "7":
+    							System.out.println("--- Delete Other Custom Order ---");
+    							System.out.print("Enter an other custom order ID to delete: ");
+    							String enteredOtherCusOrdId = getString(userInput);
+    							sqlQuery(conn, "DELETE FROM Custom_Order WHERE Order_ID = '"+enteredOtherCusOrdId+"';");
+    							break;
+    						case "8":
+    							System.out.println("--- Delete New Element Order ---");
+    							System.out.print("Enter a new element order ID to delete: ");
+    							String enteredElmOrdId = getString(userInput);
+    							sqlQuery(conn, "DELETE FROM New_Elements_Ordered WHERE Order_ID = '"+enteredElmOrdId+"';");
+    							break;
+    						case "9":
+    							System.out.println("--- Delete Review ---");
+    							System.out.print("Enter a review order ID to delete: ");
+    							String enteredReviewOrdId = getString(userInput);
+    							sqlQuery(conn, "DELETE FROM Review WHERE Order_ID = '"+enteredReviewOrdId+"';");
+    							break;
+    						case "10":
+    							System.out.println("--- Delete City ---");
+    							System.out.print("Enter a city to delete: ");
+    							String enteredCity = getString(userInput);
+    							System.out.print("Enter a state to delete: ");
+    							String enteredState = getString(userInput);
+    							sqlQuery(conn, "DELETE FROM City WHERE City_Name = '"+enteredCity+"' AND State = '"+enteredState+"';");
     							break;
     						default: 
     							System.out.println("Error: Invalid Input");
@@ -540,6 +619,7 @@ public class Checkpoint4 {
     						displayTypeMenu();
     						typeChoice = userInput.nextLine();
     						System.out.println();
+    						String x;
     						switch(typeChoice){
     						case "0":
     							displayMainMenu();
@@ -547,16 +627,64 @@ public class Checkpoint4 {
     						break;
     						case "1":
     							System.out.println("--- Search Members ---");
-    							//TODO
-    						break;
+    							System.out.print("Enter a member ID to search by: ");
+    							x = getString(userInput);
+    							sqlSelectQuery(conn, "SELECT * FROM Member WHERE Member_ID = '"+x+"';");
+    							break;
     						case "2":
     							System.out.println("--- Search Equipment ---");
-    							//TODO
-    						break;
+    							System.out.print("Enter an inventory ID to search by: ");
+    							x = getString(userInput);
+    							sqlSelectQuery(conn, "SELECT * FROM Equipment WHERE Inv_ID = '"+x+"';");
+    							break;
     						case "3":
-    							System.out.println("--- Search Warehouses ---");
-    							//TODO
-    						break;
+    							System.out.println("--- Searchs Warehouse ---");
+    							System.out.print("Enter a warehouse number to search by: ");
+    							x = getString(userInput);
+    							sqlSelectQuery(conn, "SELECT * FROM Warehouse WHERE Warehouse_Number = '"+x+"';");
+    							break;
+    						case "4":
+    							System.out.println("--- Search Drones ---");
+    							System.out.print("Enter a drone serial number to search by: ");
+    							x = getString(userInput);
+    							sqlSelectQuery(conn, "SELECT * FROM Drone WHERE Serial_Number = '"+x+"';");
+    							break;
+    						case "5":
+    							System.out.println("--- Search Drone Custom Orders ---");
+    							System.out.print("Enter a drone order ID to search by: ");
+    							x = getString(userInput);
+    							sqlSelectQuery(conn, "SELECT * FROM Custom_Order_Drones WHERE Order_ID = '"+x+"';");
+    							break;
+    						case "6":
+    							System.out.println("--- Search Equipment Custom Orders ---");
+    							System.out.print("Enter an equipment order ID to search by: ");
+    							x = getString(userInput);
+    							sqlSelectQuery(conn, "SELECT * FROM Custom_Order_Equipment WHERE Order_ID = '"+x+"';");
+    							break;
+    						case "7":
+    							System.out.println("--- Search Other Custom Orders ---");
+    							System.out.print("Enter a custom order ID to search by: ");
+    							x = getString(userInput);
+    							sqlSelectQuery(conn, "SELECT * FROM Custom_Order WHERE Order_ID = '"+x+"';");
+    							break;
+    						case "8":
+    							System.out.println("--- Search New Element Orders ---");
+    							System.out.print("Enter a new element order ID to search by: ");
+    							x = getString(userInput);
+    							sqlSelectQuery(conn, "SELECT * FROM New_Elements_Ordered WHERE Order_ID = '"+x+"';");
+    							break;
+    						case "9":
+    							System.out.println("--- Search Reviews ---");
+    							System.out.print("Enter a review order ID to search by: ");
+    							x = getString(userInput);
+    							sqlSelectQuery(conn, "SELECT * FROM Review WHERE Order_ID = '"+x+"';");
+    							break;
+    						case "10":
+    							System.out.println("--- Search Cities ---");
+    							System.out.print("Enter a state to search by: ");
+    							x = getString(userInput);
+    							sqlSelectQuery(conn, "SELECT * FROM City WHERE State = '"+x+"';");
+    							break;
     						default: 
     							System.out.println("Error: Invalid Input");
     						break;
