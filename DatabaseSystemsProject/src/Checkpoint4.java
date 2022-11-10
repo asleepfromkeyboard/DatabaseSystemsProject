@@ -7,7 +7,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
-import java.util.Scanner;
 
 /** 
  * @author Austin Greer
@@ -18,7 +17,7 @@ public class Checkpoint4 {
 	/**
 	 *  The database file name.
 	 */
-	private static String DATABASE = "cp4v1.db";
+	private static String DATABASE = "cp4v2.db";
 	
     /**
      * Connects to the database if it exists, creates it if it does not, and returns the connection object.
@@ -109,19 +108,23 @@ public class Checkpoint4 {
  		System.out.print("Enter a number: ");
  	}
  	
- 	// Gets the user to enter a name
- 	public static String getName(Scanner input) {
- 		System.out.print("Enter a name: ");
+ 	// Gets the user to enter a string
+ 	public static String getString(Scanner input) {
  		String name = input.nextLine();
  		return name;
  	}
  	
- 	// Get the user to enter an ID number
+ 	// Get the user to enter a number
  	public static int getNum(Scanner input) {
- 		System.out.print("Enter an ID number: ");
  		int num = Integer.parseInt(input.nextLine());
  		return num;
  	}
+ 	
+ 	// Get the user to enter a longer number
+  	public static long getLongNum(Scanner input) {
+  		long num = Long.parseLong(input.nextLine());
+  		return num;
+  	}
 
     
     public static void main(String[] args) {
@@ -135,8 +138,7 @@ public class Checkpoint4 {
     String mainChoice = userInput.nextLine();
     			
     String typeChoice;
-    String dataName;
-    int dataID;
+    String sql;
     			
     // While the user does NOT enter 0 to quit.
     while (mainChoice != "0") {
@@ -169,15 +171,119 @@ public class Checkpoint4 {
     								break;
     							case "1":
     								System.out.println("--- Add Member ---");
-    								//TODO
+    								sql = "INSERT INTO Member (MemberID, First_Name, Last_Name, Address, Email, Start_Date, Warehouse_Distance, Warehouse_Number) VALUES (?,?,?,?,?,?,?,?)";
+    								System.out.print("Enter the new member's ID: ");
+    								String newMemberID = getString(userInput);
+    								System.out.print("Enter the new member's first name: ");
+    								String newFirstName = getString(userInput);
+    								System.out.print("Enter the new member's last name: ");
+    								String newLastName = getString(userInput);
+    								System.out.print("Enter the new member's address: ");
+    								String newAddress = getString(userInput);
+    								System.out.print("Enter the new member's email: ");
+    								String newEmail = getString(userInput);
+    								System.out.print("Enter the new member's start date: ");
+    								String newStartDate = getString(userInput);
+    								System.out.print("Enter the new member's distance from the warehouse: ");
+    								int newWarehouseDistance = getNum(userInput);
+    								System.out.print("Enter the new member's warehouse number: ");
+    								int newWarehouseNumber = getNum(userInput);
+    								try {
+									PreparedStatement newMember = conn.prepareStatement(sql);
+									newMember.setString(1, newMemberID);
+									newMember.setString(2, newFirstName);
+									newMember.setString(3, newLastName);
+									newMember.setString(4, newAddress);
+									newMember.setString(5, newEmail);
+									newMember.setString(6, newStartDate);
+									newMember.setInt(7, newWarehouseDistance);
+									newMember.setInt(8, newWarehouseNumber);
+									newMember.execute();
+									System.out.println("New member added.");
+    								} catch (SQLException e) {
+									e.printStackTrace();
+    								}
+    								
     								break;
     							case "2":
     								System.out.println("--- Add Equipment ---");
-    								//TODO
+    								sql = "INSERT INTO Equipment(Inv_ID, Warehouse_Number, Description, Active_Category, Model_Number, Type, Year, Serial_Number, Arrival_Date, Warranty_Exp, Manufacturer, Weight, Size) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    								System.out.print("Enter the new inventory ID: ");
+    								String e01 = getString(userInput);
+    								System.out.print("Enter the warehouse number: ");
+    								int e02 = getNum(userInput);
+    								System.out.print("Enter the description: ");
+    								String e03 = getString(userInput);
+    								System.out.print("Enter the active cateogry: ");
+    								String e04 = getString(userInput);
+    								System.out.print("Enter the model number: ");
+    								String e05 = getString(userInput);
+    								System.out.print("Enter the type: ");
+    								String e06 = getString(userInput);
+    								System.out.print("Enter the active year: ");
+    								int e07 = getNum(userInput);
+    								System.out.print("Enter the serial number: ");
+    								String e08 = getString(userInput);
+    								System.out.print("Enter the arrival date: ");
+    								String e09 = getString(userInput);
+    								System.out.print("Enter the warranty expiration: ");
+    								String e10 = getString(userInput);
+    								System.out.print("Enter the manufacturer's name: ");
+    								String e11 = getString(userInput);
+    								System.out.print("Enter the weight: ");
+    								int e12 = getNum(userInput);
+    								System.out.print("Enter the size: ");
+    								int e13 = getNum(userInput);
+    								try {
+    									PreparedStatement newEquip = conn.prepareStatement(sql);
+    									newEquip.setString(1, e01);
+    									newEquip.setInt(2, e02);
+    									newEquip.setString(3, e03);
+    									newEquip.setString(4, e04);
+    									newEquip.setString(5, e05);
+    									newEquip.setString(6, e06);
+    									newEquip.setInt(7, e07);
+    									newEquip.setString(8, e08);
+    									newEquip.setString(9, e09);
+    									newEquip.setString(10, e10);
+    									newEquip.setString(11, e11);
+    									newEquip.setInt(12, e12);
+    									newEquip.setInt(13, e13);
+    									newEquip.execute();
+    									System.out.println("New equipment added.");
+        								} catch (SQLException e) {
+    									e.printStackTrace();
+        								}
+    								
     								break;
     							case "3":
     								System.out.println("--- Add Warehouse ---");
-    								//TODO
+    								sql = "INSERT INTO Warehouse(Warehouse_Number, Manager_Name, Address, Phone_Num, Storage_Capacity, Drone_Capacity) VALUES (?,?,?,?,?,?)";
+    								System.out.print("Enter the new warehouse number: ");
+    								int newWarehouseNum = getNum(userInput);
+    								System.out.print("Enter the new warehouse manager name: ");
+    								String newManagerName = getString(userInput);
+    								System.out.print("Enter the new warehouse address: ");
+    								String newWarehouseAddress = getString(userInput);
+    								System.out.print("Enter the new warehouse phone number: ");
+    								long newWarehousePhoneNum = getLongNum(userInput);
+    								System.out.print("Enter the new warehouse capacity: ");
+    								String newWarehouseCapacity = getString(userInput);
+    								System.out.print("Enter the new warehouse drone capacity: ");
+    								int newWarehouseDroneCapacity = getNum(userInput);
+    								try {
+    									PreparedStatement newWarehouse = conn.prepareStatement(sql);
+    									newWarehouse.setInt(1, newWarehouseNum);
+    									newWarehouse.setString(2, newManagerName);
+    									newWarehouse.setString(3, newWarehouseAddress);
+    									newWarehouse.setLong(4, newWarehousePhoneNum);
+    									newWarehouse.setString(5, newWarehouseCapacity);
+    									newWarehouse.setInt(6, newWarehouseDroneCapacity);
+    									newWarehouse.execute();
+    									System.out.println("New warehouse added.");
+        								} catch (SQLException e) {
+    									e.printStackTrace();
+        								}
     								break;						
     							default: 
     								System.out.println("Error: Invalid Input");
