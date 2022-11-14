@@ -96,6 +96,7 @@ public class Checkpoint4 {
  		System.out.println("[3] - Delete");
  		System.out.println("[4] - Search");
  		System.out.println("[5] - View All");
+ 		System.out.println("[6] - Reports");
  		System.out.println("[0] - Quit");
  		System.out.print("Enter a number: ");
  	}
@@ -112,6 +113,17 @@ public class Checkpoint4 {
  		System.out.println("[8] - New Element Order");
  		System.out.println("[9] - Review");
  		System.out.println("[10] - City");
+ 		System.out.println("[0] - Go Back");
+ 		System.out.print("Enter a number: ");
+ 	}
+ 	
+ 	public static void displayReportMenu() {
+ 		System.out.println("[1] - Report 1");
+ 		System.out.println("[2] - Report 2");
+ 		System.out.println("[3] - Report 3");
+ 		System.out.println("[4] - Report 4");
+ 		System.out.println("[5] - Report 5");
+ 		System.out.println("[6] - Report 6");
  		System.out.println("[0] - Go Back");
  		System.out.print("Enter a number: ");
  	}
@@ -1014,6 +1026,41 @@ public class Checkpoint4 {
     							default: 
     								System.out.println("Error: Invalid Input");
     								break;						
+    						}
+    						break;
+    					case "6": 
+    						System.out.println();
+    						System.out.println("Choose a report.");
+    						displayReportMenu();
+    						typeChoice = userInput.nextLine();
+    						System.out.println();
+    						switch(typeChoice){
+    						case "0":
+								displayMainMenu();
+								mainChoice = userInput.nextLine();
+								break;
+    						case "1":
+    							
+    							System.out.println("Report 1: ");//TODO
+    							break;
+    						case "2":
+    							System.out.println("Report 2: ");//TODO
+    							break;
+    						case "3":
+    							System.out.println("Report 3: ");//TODO
+    							break;
+    						case "4":
+    							System.out.println("Report 4: ");//TODO
+    							break;
+    						case "5":
+    							System.out.println("Report 5: ");//TODO
+    							break;
+    						case "6":
+    							System.out.println("Report 6: ");//TODO
+    							break;
+    						default:
+    							System.out.println("Error: Invalid Input");
+    							break;
     						}
     						break;
     					// For when the user enters a value not accepted by the main menu			
